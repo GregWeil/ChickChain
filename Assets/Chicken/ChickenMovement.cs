@@ -30,7 +30,7 @@ public class ChickenMovement : MonoBehaviour {
 
         var position = transform.position;
         if ((position.z <= posGround) && (speedV <= 0)) {
-            if ((body.velocity.magnitude > 1f) && (movement.sqrMagnitude > 0.1f)) {
+            if (movement.sqrMagnitude > 0.1f) {
                 speedV += 7.5f;
             }
         }
