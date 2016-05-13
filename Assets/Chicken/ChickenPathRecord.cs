@@ -5,7 +5,7 @@ public class ChickenPathRecord : MonoBehaviour {
 
     List<Vector2> positions = new List<Vector2>();
 
-    float interval = 1.0f;
+    float interval = 0.1f;
     int history = 0;
 
 	// Use this for initialization
