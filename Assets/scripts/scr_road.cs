@@ -5,24 +5,70 @@ using System.Collections.Generic;
 public class scr_road : MonoBehaviour {
 
     // Road variables
-    private static float areaHeight = 60f;
-    private static int numLanes = 6;
-    private static float laneWidth = 3f;
-    private static float sideWidth = 1f;
-    private static float areaWidth = sideWidth * 2 + laneWidth * numLanes;
+    private float areaWidth = 16f;
+    private int numLanes = 6;
+    private float laneWidth = 1f;
+    private float[] spawnPositions = new float[6] { 2.91f, 1.79f, 0.63f, -0.63f, -1.79f, -2.91f };
 
     // Spawning variables
     private Vector2 sideWeight = new Vector2(0f, 0f);
-    private float difficulty = 0f;
+    private float difficulty;
+    private float acceleration = .99f;
+    private float carSpeed = 2f;
+    private float spawnTimer = 1.5f;
+
+    // Prefabs
+    public GameObject carObj;
 
 	// Use this for initialization
 	void Start () {
-
-
+        difficulty = spawnTimer;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
-	}
+
+        // Spawn cars
+        spawnTimer -= Time.deltaTime;
+        if (spawnTimer <= 0)
+        {
+            difficulty *= acceleration;
+            spawnTimer = difficulty;
+
+            GameObject tempCar = Instantiate(carObj);
+            int offset = chooseSide();
+            int position = Random.Range(0, numLanes / 2);
+
+            if (offset >= numLanes / 2)
+            {
+                tempCar.transform.position = new Vector3(-areaWidth * .75f, spawnPositions[offset + position], 0f);
+                tempCar.GetComponent<Rigidbody2D>().velocity = new Vector3(carSpeed, 0f, 0f);
+            }
+            else
+            {
+                tempCar.transform.position = new Vector3(areaWidth * .75f, spawnPositions[offset + position], 0f);
+                tempCar.GetComponent<Rigidbody2D>().velocity = new Vector3(-carSpeed, 0f, 0f);
+            }
+        }
+
+    }
+
+    // Choose to spawn a car going left, or a car going right
+    private int chooseSide()
+    {
+        float leftWeight = Random.Range(0f, 5f) + sideWeight.x;
+        float rightWeight = Random.Range(0f, 5f) + sideWeight.y;
+        if (leftWeight > rightWeight)
+        {
+            sideWeight.x--;
+            sideWeight.y++;
+            return numLanes / 2;
+        }
+        else
+        {
+            sideWeight.x++;
+            sideWeight.y--;
+            return 0;
+        }
+    }
 }
