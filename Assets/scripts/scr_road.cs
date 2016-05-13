@@ -7,8 +7,7 @@ public class scr_road : MonoBehaviour {
     // Road variables
     private float areaWidth = 16f;
     private int numLanes = 6;
-    private float[] spawnPositions = new float[6] { 2.91f, 1.75f, 0.63f, -0.63f, -1.75f, -2.91f };
-    private Color[] carColors = new Color[5] { Color.red, Color.blue, Color.green, Color.black, Color.white };
+    private float[] spawnPositions = new float[6] { 2.84f, 1.75f, 0.64f, -0.66f, -1.76f, -2.86f };
 
     // Spawning variables
     private Vector2 sideWeight = new Vector2(0f, 0f);
@@ -41,17 +40,17 @@ public class scr_road : MonoBehaviour {
 
             if (offset >= numLanes / 2)
             {
-                tempCar.transform.position = new Vector3(areaWidth * .75f, spawnPositions[offset + position], 0f);
+                tempCar.transform.position = new Vector3(areaWidth * .75f, spawnPositions[offset + position], 0.0f);
                 tempCar.GetComponent<Rigidbody2D>().velocity = new Vector3(-carSpeed, 0f, 0f);
                 tempCar.transform.rotation = Quaternion.Euler(new Vector3(90f, 0f, 0f));
             }
             else
             {
-                tempCar.transform.position = new Vector3(-areaWidth * .75f, spawnPositions[offset + position], 0f);
+                tempCar.transform.position = new Vector3(-areaWidth * .75f, spawnPositions[offset + position], 0.0f);
                 tempCar.GetComponent<Rigidbody2D>().velocity = new Vector3(carSpeed, 0f, 0f);
                 tempCar.transform.rotation = Quaternion.Euler(new Vector3(-90f, -90f, -90f));
             }
-            Color randColor = carColors[Random.Range(0,carColors.Length)];
+            Color randColor = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f), 1f);
             tempCar.carColor.GetComponent<Renderer>().material.SetColor("_Color", randColor);
             tempCar.carColor.GetComponent<Renderer>().material.SetColor("_SpecColor", randColor);
             tempCar.carColor.GetComponent<Renderer>().material.SetColor("_EmissionColor", randColor);
