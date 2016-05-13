@@ -12,6 +12,8 @@ public class ChickenMovement : MonoBehaviour {
     float posGround = 0f;
     float speedV = 0f;
 
+    float stunTime = 0f;
+
 	// Use this for initialization
 	void Start () {
         body = GetComponent<Rigidbody2D>();
@@ -25,8 +27,10 @@ public class ChickenMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        stunTime -= Time.deltaTime;
         movement = new Vector2(-Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         if (movement.sqrMagnitude > 1) movement.Normalize();
+        if (stunTime > 0f) movement = Vector2.zero;
 
         var position = transform.position;
         if ((position.z <= posGround) && (speedV <= 0)) {
@@ -42,4 +46,8 @@ public class ChickenMovement : MonoBehaviour {
         }
         transform.position = position;
 	}
+
+    public void stun(float time) {
+        stunTime = Mathf.Max(time, stunTime);
+    }
 }
