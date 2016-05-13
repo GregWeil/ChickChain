@@ -7,8 +7,8 @@ public class scr_road : MonoBehaviour {
     // Road variables
     private float areaWidth = 16f;
     private int numLanes = 6;
-    private float laneWidth = 1f;
-    private float[] spawnPositions = new float[6] { 2.91f, 1.79f, 0.63f, -0.63f, -1.79f, -2.91f };
+    private float[] spawnPositions = new float[6] { 2.91f, 1.75f, 0.63f, -0.63f, -1.75f, -2.91f };
+    private Color[] carColors = new Color[5] { Color.red, Color.blue, Color.green, Color.black, Color.white };
 
     // Spawning variables
     private Vector2 sideWeight = new Vector2(0f, 0f);
@@ -18,7 +18,7 @@ public class scr_road : MonoBehaviour {
     private float spawnTimer = 1.5f;
 
     // Prefabs
-    public GameObject carObj;
+    public scr_car carObj;
 
 	// Use this for initialization
 	void Start () {
@@ -35,20 +35,26 @@ public class scr_road : MonoBehaviour {
             difficulty *= acceleration;
             spawnTimer = difficulty;
 
-            GameObject tempCar = Instantiate(carObj);
+            scr_car tempCar = Instantiate(carObj);
             int offset = chooseSide();
             int position = Random.Range(0, numLanes / 2);
 
             if (offset >= numLanes / 2)
             {
-                tempCar.transform.position = new Vector3(-areaWidth * .75f, spawnPositions[offset + position], 0f);
-                tempCar.GetComponent<Rigidbody2D>().velocity = new Vector3(carSpeed, 0f, 0f);
+                tempCar.transform.position = new Vector3(areaWidth * .75f, spawnPositions[offset + position], 0f);
+                tempCar.GetComponent<Rigidbody2D>().velocity = new Vector3(-carSpeed, 0f, 0f);
+                tempCar.transform.rotation = Quaternion.Euler(new Vector3(90f, 0f, 0f));
             }
             else
             {
-                tempCar.transform.position = new Vector3(areaWidth * .75f, spawnPositions[offset + position], 0f);
-                tempCar.GetComponent<Rigidbody2D>().velocity = new Vector3(-carSpeed, 0f, 0f);
+                tempCar.transform.position = new Vector3(-areaWidth * .75f, spawnPositions[offset + position], 0f);
+                tempCar.GetComponent<Rigidbody2D>().velocity = new Vector3(carSpeed, 0f, 0f);
+                tempCar.transform.rotation = Quaternion.Euler(new Vector3(-90f, -90f, -90f));
             }
+            Color randColor = carColors[Random.Range(0,carColors.Length)];
+            tempCar.carColor.GetComponent<Renderer>().material.SetColor("_Color", randColor);
+            tempCar.carColor.GetComponent<Renderer>().material.SetColor("_SpecColor", randColor);
+            tempCar.carColor.GetComponent<Renderer>().material.SetColor("_EmissionColor", randColor);
         }
 
     }

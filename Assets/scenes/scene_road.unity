@@ -278,48 +278,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!1001 &1829596916
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 471058, guid: 39f0080b7e4d7934dafd0a6f2e5e0a0b, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 13.13
-      objectReference: {fileID: 0}
-    - target: {fileID: 471058, guid: 39f0080b7e4d7934dafd0a6f2e5e0a0b, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0.63
-      objectReference: {fileID: 0}
-    - target: {fileID: 471058, guid: 39f0080b7e4d7934dafd0a6f2e5e0a0b, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 471058, guid: 39f0080b7e4d7934dafd0a6f2e5e0a0b, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 471058, guid: 39f0080b7e4d7934dafd0a6f2e5e0a0b, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 471058, guid: 39f0080b7e4d7934dafd0a6f2e5e0a0b, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 471058, guid: 39f0080b7e4d7934dafd0a6f2e5e0a0b, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 471058, guid: 39f0080b7e4d7934dafd0a6f2e5e0a0b, type: 2}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 39f0080b7e4d7934dafd0a6f2e5e0a0b, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &2045989877
 GameObject:
   m_ObjectHideFlags: 0
@@ -347,7 +305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa9b0cc5b76dda54bbb701f090237064, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carObj: {fileID: 172638, guid: 39f0080b7e4d7934dafd0a6f2e5e0a0b, type: 2}
+  carObj: {fileID: 185158, guid: f9db7d0d74df6c94f905e1babd300199, type: 2}
 --- !u!4 &2045989879
 Transform:
   m_ObjectHideFlags: 0
