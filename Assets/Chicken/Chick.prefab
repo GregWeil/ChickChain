@@ -15,7 +15,7 @@ GameObject:
   - 114: {fileID: 11439236}
   m_Layer: 0
   m_Name: Chick
-  m_TagString: Untagged
+  m_TagString: Follower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108,7 +108,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  distance: 2
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
