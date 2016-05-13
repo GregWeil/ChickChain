@@ -24,11 +24,11 @@ public class ChickFollow : MonoBehaviour {
     // Called every physics step
     void FixedUpdate() {
         Vector2 position = target.pathPosition(distance);
-        body.MovePosition(Vector2.SmoothDamp(transform.position, position, ref speed, 0.05f));
-        if (position != posTarget) {
+        if ((Vector2.Distance(position, posTarget) > 1f) && (transform.position.z <= posGround)) {
             posTarget = position;
-            speedV += 20f;
+            speedV += Random.Range(15f, 25f);
         }
+        body.MovePosition(Vector2.SmoothDamp(transform.position, posTarget, ref speed, 0.05f));
     }
 
     // Update is called once per frame
