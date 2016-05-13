@@ -9,9 +9,13 @@ public class ChickenMovement : MonoBehaviour {
     float speed = 5.0f;
     float accel = 25.0f;
 
+    float posGround = 0f;
+    float speedV = 0f;
+
 	// Use this for initialization
 	void Start () {
         body = GetComponent<Rigidbody2D>();
+        posGround = transform.position.z;
 	}
 
     // Called every physics step
@@ -23,5 +27,19 @@ public class ChickenMovement : MonoBehaviour {
 	void Update () {
         movement = new Vector2(-Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         if (movement.sqrMagnitude > 1) movement.Normalize();
+
+        var position = transform.position;
+        if ((position.z <= posGround) && (speedV <= 0)) {
+            if ((body.velocity.magnitude > 1f) && (movement.sqrMagnitude > 0.1f)) {
+                speedV += 7.5f;
+            }
+        }
+        speedV -= (50f * Time.deltaTime);
+        position.z += (speedV * Time.deltaTime);
+        if (position.z < posGround) {
+            position.z = posGround;
+            speedV = 0f;
+        }
+        transform.position = position;
 	}
 }
