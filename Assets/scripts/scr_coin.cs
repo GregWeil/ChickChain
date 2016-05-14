@@ -7,6 +7,8 @@ public class scr_coin : MonoBehaviour {
     float velocity = 0f;
     int numBounces = 0;
 
+    private scr_camera cameraObj;
+
     // Something made contact
     void OnTriggerEnter2D(Collider2D col)
     {
@@ -17,8 +19,14 @@ public class scr_coin : MonoBehaviour {
                 Destroy(allCars[i].gameObject);     
             }
             Destroy(gameObject);
+            cameraObj.Shake();
         }
         
+    }
+
+    void Start()
+    {
+        cameraObj = Camera.main.GetComponent<scr_camera>();
     }
 
     void Update()

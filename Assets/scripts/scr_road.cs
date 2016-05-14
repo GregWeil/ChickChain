@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class scr_road : MonoBehaviour {
 
@@ -8,6 +9,7 @@ public class scr_road : MonoBehaviour {
     private float areaWidth = 16f;
     private int numLanes = 6;
     private float[] spawnPositions = new float[6] { 2.84f, 1.75f, 0.64f, -0.66f, -1.76f, -2.86f };
+    float endTime = 3f;
 
     // Spawning variables
     private Vector2 sideWeight = new Vector2(0f, 0f);
@@ -38,7 +40,7 @@ public class scr_road : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         difficulty = spawnTimer;
-        numCracks = Random.Range(10, 12);
+        numCracks = Random.Range(5, 7);
 
         // Initial coin spawn time
         coinTimer = Random.Range(0,0);
@@ -77,6 +79,17 @@ public class scr_road : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        // Game over
+        if (FindObjectsOfType<ChickenMovement>().Length == 0)
+        {
+            endTime -= Time.deltaTime;
+        }
+
+        if (endTime <= 0)
+        {
+            SceneManager.LoadScene("scene_road");
+        }
 
         // Spawn coins
         if (coinTimer == 0)
@@ -162,7 +175,7 @@ public class scr_road : MonoBehaviour {
 
     void makeEgg()
     {
-                Vector3 eggPos = new Vector3(Random.Range(-7, 7), 4f * eggSign, 0f);
+        Vector3 eggPos = new Vector3(Random.Range(-6, 6), 4f * eggSign, 0f);
         eggSign *= -1;
         Instantiate(eggObj, eggPos, Quaternion.identity);
     }
