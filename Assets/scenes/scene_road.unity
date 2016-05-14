@@ -306,7 +306,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carObj: {fileID: 11496662, guid: 78f2308758731074e9874ebb2cf0cf94, type: 2}
-  crackObj: {fileID: 11448382, guid: b249b140b6f215548a49046c967fead9, type: 2}
+  crackObj: {fileID: 11451836, guid: 87407366d470e1c428197fb39a62a739, type: 2}
 --- !u!4 &2045989879
 Transform:
   m_ObjectHideFlags: 0
