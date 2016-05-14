@@ -1535,7 +1535,7 @@ ParticleSystemRenderer:
   m_NormalDirection: 1
   m_RenderAlignment: 0
   m_Pivot: {x: 0, y: 0, z: 0}
-  m_Mesh: {fileID: 4300000, guid: 1563c73184aefbc4eb4cee19a5e3cb3e, type: 3}
+  m_Mesh: {fileID: 4300000, guid: cd60ba4d24cb2324681e23fef60e992d, type: 3}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}

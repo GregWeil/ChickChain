@@ -55,7 +55,7 @@ public class scr_road : MonoBehaviour {
         makeCracks();
 
         // Spawn initial egg
-        eggSign = Mathf.Sign(Random.Range(-1f, 1f));
+        eggSign = -1f;
         makeEgg();
 
         // Get best score

@@ -3,6 +3,8 @@ using System.Collections;
 
 public class scr_coin : MonoBehaviour {
 
+    public AudioSource sound = null;
+
     float acceleration = 5f;
     float velocity = 0f;
     int numBounces = 0;
@@ -14,6 +16,9 @@ public class scr_coin : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D col)
     {
         if (col.CompareTag("Player")) {
+            Destroy(sound.gameObject, 5f);
+            sound.transform.parent = null;
+            sound.Play();
             scr_car[] allCars = FindObjectsOfType<scr_car>();
             for (var i = 0; i < allCars.Length; i++)
             {
