@@ -3,6 +3,8 @@ using System.Collections;
 
 public class ChickenMovement : MonoBehaviour {
 
+    public GameObject mesh = null;
+
     Rigidbody2D body;
 
     Vector2 movement = Vector2.zero;
@@ -25,18 +27,24 @@ public class ChickenMovement : MonoBehaviour {
     void FixedUpdate () {
         body.velocity = Vector2.MoveTowards(body.velocity, (movement * speed), (accel * Time.fixedDeltaTime));
         if (movement.magnitude > threshold) {
-            var angle = (Mathf.Atan2(movement.y, movement.x) * Mathf.Rad2Deg) + 180f;
+            var angle = (Mathf.Atan2(movement.y, movement.x) * Mathf.Rad2Deg);
             body.MoveRotation(Mathf.MoveTowardsAngle(body.rotation, angle, (300f * Time.fixedDeltaTime)));
         }
     }
 	
 	// Update is called once per frame
 	void Update () {
-        stunTime -= Time.deltaTime;
         movement = new Vector2(-Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         if (movement.sqrMagnitude > 1) movement.Normalize();
         if (movement.magnitude < threshold) movement = Vector2.zero;
-        if (stunTime > 0f) movement = Vector2.zero;
+
+        stunTime -= Time.deltaTime;
+        if (stunTime > 0f) {
+            movement = Vector2.zero;
+            mesh.transform.localPosition = (0.1f * Random.value * (Quaternion.AngleAxis((Random.value * 360f), Vector3.forward) * Vector3.right));
+        } else {
+            mesh.transform.localPosition = Vector3.zero;
+        }
 
         var position = transform.position;
         if ((position.z <= posGround) && (speedV <= 0)) {
