@@ -14,7 +14,7 @@ public class scr_road : MonoBehaviour {
     private float difficulty;
     private float acceleration = .99f;
     private float carSpeed = 2f;
-    private float spawnTimer = 1.5f;
+    private float spawnTimer = 1.75f;
     int lastLane = -1;
 
     // Crack variables
@@ -23,9 +23,13 @@ public class scr_road : MonoBehaviour {
     private float crackRatio = 2f;
     private int numCracks;
 
+    // Egg variables
+    public float eggSign = 1f;
+
     // Prefabs
     public scr_car carObj;
     public scr_crack crackObj;
+    public EggPickup eggObj;
 
 	// Use this for initialization
 	void Start () {
@@ -43,7 +47,7 @@ public class scr_road : MonoBehaviour {
             while (limit > 0)
             {
                 int matches = 0;
-                current.transform.position = new Vector3(Mathf.Round(Random.Range(-areaWidth/2, areaWidth/2)), Mathf.Round(Random.Range(-3f, 3f)), 0.01f);
+                current.transform.position = new Vector3(Mathf.Round(Random.Range(-areaWidth/2, areaWidth/2)), Mathf.Round(Random.Range(-3f, 3f)), 0.0001f);
                 current.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 90f * Random.Range(0, 2)));
                 current.transform.localScale = new Vector3(current.transform.localScale.x * (-1 * Random.Range(1,2)), current.transform.localScale.y * (-1 * Random.Range(1, 2)), 1f);
                 for (var j = 0; j < crackList.Count; j++)
@@ -57,16 +61,28 @@ public class scr_road : MonoBehaviour {
             }
             crackList.Add(current);
         }
+
+        // Spawn initial egg
+        eggSign = Mathf.Sign(Random.Range(-1f, 1f));
+        makeEgg();
+        
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
+        // Spawn eggs
+        if (FindObjectsOfType<EggPickup>().Length == 0)
+        {
+            makeEgg();
+        }
 
         // Spawn cars
         spawnTimer -= Time.deltaTime;
         if (spawnTimer <= 0)
         {
             difficulty *= acceleration;
+            difficulty = Mathf.Max(difficulty, 0.5f);
             spawnTimer = difficulty;
 
             scr_car tempCar = Instantiate(carObj);
@@ -126,6 +142,13 @@ public class scr_road : MonoBehaviour {
         float xDist = Mathf.Abs(a.transform.position.x - b.transform.position.x) * crackRatio;
         float yDist = Mathf.Abs(a.transform.position.y - b.transform.position.y);
         return Mathf.Sqrt( (xDist * xDist) + (yDist * yDist) );
+    }
+
+    void makeEgg()
+    {
+                Vector3 eggPos = new Vector3(Random.Range(-7, 7), 4f * eggSign, 0f);
+        eggSign *= -1;
+        Instantiate(eggObj, eggPos, Quaternion.identity);
     }
 
 }
