@@ -4,6 +4,7 @@ using System.Collections;
 public class ChickenMovement : MonoBehaviour {
 
     public GameObject mesh = null;
+    public AudioSource bokSound = null;
     public AudioSource stunSound = null;
 
     Rigidbody2D body;
@@ -51,6 +52,8 @@ public class ChickenMovement : MonoBehaviour {
         if ((position.z <= posGround) && (speedV <= 0)) {
             if (movement.magnitude > threshold) {
                 speedV += 5f;
+                bokSound.pitch = Random.Range(0.9f, 1.1f);
+                bokSound.Play();
             }
         }
         speedV -= (30f * Time.deltaTime);
