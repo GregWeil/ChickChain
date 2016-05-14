@@ -7,7 +7,7 @@ public class ChickFollow : MonoBehaviour {
     public AudioSource chirpSound = null;
 
     ChickFollow trailing = null;
-    float trailingDelay = 0.0f;
+    float trailingTime = 0.0f;
     public float distance = 1f;
 
     Rigidbody2D body = null;
@@ -25,6 +25,7 @@ public class ChickFollow : MonoBehaviour {
         posTarget = body.position;
         posGround = transform.position.z;
         FindTrailingTarget();
+        trailingTime = Time.time;
         chirpSound.pitch = Random.Range(0.8f, 1.2f);
     }
 
@@ -38,15 +39,29 @@ public class ChickFollow : MonoBehaviour {
         }
         if (Vector2.Distance(posTarget, position) > 0.5f) {
             if ((transform.position.z <= posGround) && (speedV <= 0f)) {
+                //Do a hop
                 posTarget = Vector2.MoveTowards(posTarget, position, 0.75f);
                 speedV += Random.Range(10f, 20f);
                 chirpSound.Play();
+                //Move up if the next spot is open
+                if (Time.time > trailingTime) {
+                    if (trailing == null) {
+                        FindTrailingTarget(distance);
+                    } else if ((trailing != null) && (trailing != this)) {
+                        distance = (trailing.distance + 1f);
+                    }
+                }
             }
         }
         body.MovePosition(Vector2.SmoothDamp(transform.position, posTarget, ref speed, 0.05f));
         if (speed.sqrMagnitude > 0.5f) {
             var angle = (Mathf.Atan2(speed.y, speed.x) * Mathf.Rad2Deg);
             body.MoveRotation(Mathf.MoveTowardsAngle(body.rotation, angle, (1000f * Time.fixedDeltaTime)));
+        }
+        if (trailing != null) {
+            if ((trailing == this) || (Mathf.Abs((trailing.distance + 1f) - distance) < 0.1f)) {
+                trailingTime = (Time.time + 1f);
+            }
         }
     }
 
@@ -60,16 +75,6 @@ public class ChickFollow : MonoBehaviour {
             speedV = 0f;
         }
         transform.position = position;
-
-        if ((trailing == null) && (trailingDelay < 0f)) {
-            FindTrailingTarget(distance);
-        } else if ((trailing != null) && (trailingDelay < 0f) && (trailing != this)) {
-            distance = (trailing.distance + 1f);
-        } else if ((trailing != null) && (Mathf.Abs((trailing.distance + 1f) - distance) < 0.1f)) {
-            trailingDelay = 1f;
-        } else {
-            trailingDelay -= Time.deltaTime;
-        }
     }
 
     void FindTrailingTarget (float oldDistance = float.MaxValue) {
