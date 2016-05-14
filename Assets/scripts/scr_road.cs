@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class scr_road : MonoBehaviour {
 
+    // Game start
+    public static bool gameStart = false;
+
     // Road variables
     private float areaWidth = 16f;
     private int numLanes = 6;
@@ -14,7 +17,7 @@ public class scr_road : MonoBehaviour {
     // Spawning variables
     private Vector2 sideWeight = new Vector2(0f, 0f);
     private float difficulty;
-    private float acceleration = .99f;
+    //private float acceleration = .99f;
     private float carSpeed = 2f;
     private float spawnTimer = 1.5f;
     int lastLane = -1;
@@ -42,7 +45,7 @@ public class scr_road : MonoBehaviour {
         difficulty = spawnTimer;
 
         // Initial coin spawn time
-        coinTimer = Random.Range(0,0);
+        coinTimer = Random.Range(1,2);
 
         // Spawn cracks
         makeCracks();
@@ -56,69 +59,17 @@ public class scr_road : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        // Game over
-        if (FindObjectsOfType<ChickenMovement>().Length == 0)
+        if (!gameStart)
         {
-            endTime -= Time.deltaTime;
-        }
-
-        if (endTime <= 0)
-        {
-            SceneManager.LoadScene("scene_road");
-        }
-
-        // Spawn coins
-        if (coinTimer == 0)
-        {
-            var newCoin = Instantiate(coinObj);
-            newCoin.transform.position = new Vector3(Random.Range(-7f, 7f), Random.Range(-4f, 4f), 1f);
-            coinTimer = Random.Range(3,5);
-        }
-
-        // Spawn eggs
-        if (FindObjectsOfType<EggPickup>().Length == 0)
-        {
-            makeEgg();
-            coinTimer--;
-        }
-
-        // Spawn cars
-        spawnTimer -= Time.deltaTime;
-        if (spawnTimer <= 0)
-        {
-            //difficulty *= acceleration;
-            //difficulty = Mathf.Max(difficulty, 1f);
-            spawnTimer = difficulty;
-
-            scr_car tempCar = Instantiate(carObj);
-            int offset = chooseSide();
-            int position = Random.Range(0, numLanes / 2);
-
-            // Don't let cars overlap when spawning gets fast
-            if (difficulty < .75f) {
-                while (lastLane == offset + position)
-                {
-                    position = Random.Range(0, numLanes / 2);
-                }
-            }
-
-            if (offset >= numLanes / 2)
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                tempCar.transform.position = new Vector3(areaWidth * .75f, spawnPositions[offset + position], 0.0f);
-                tempCar.GetComponent<Rigidbody2D>().velocity = new Vector3(-carSpeed, 0f, 0f);
-                tempCar.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
+                gameStart = true;
             }
-            else
-            {
-                tempCar.transform.position = new Vector3(-areaWidth * .75f, spawnPositions[offset + position], 0.0f);
-                tempCar.GetComponent<Rigidbody2D>().velocity = new Vector3(carSpeed, 0f, 0f);
-                tempCar.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 180f));
-            }
-            Color randColor = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f), 1f);
-            tempCar.carColor.GetComponent<Renderer>().material.SetColor("_Color", randColor);
-            tempCar.carColor.GetComponent<Renderer>().material.SetColor("_EmissionColor", randColor);
+        }
 
-            lastLane = offset + position;
+        else if (gameStart)
+        {
+            gameLoop();
         }
 
     }
@@ -192,6 +143,75 @@ public class scr_road : MonoBehaviour {
                 if (matches < 1) { limit = 0; }
             }
             crackList.Add(current);
+        }
+    }
+
+    void gameLoop()
+    {
+        // Game over
+        if (FindObjectsOfType<ChickenMovement>().Length == 0)
+        {
+            endTime -= Time.deltaTime;
+        }
+
+        if (endTime <= 0)
+        {
+            SceneManager.LoadScene("scene_road");
+        }
+
+        // Spawn coins
+        if (coinTimer == 0)
+        {
+            var newCoin = Instantiate(coinObj);
+            newCoin.transform.position = new Vector3(Random.Range(-7f, 7f), Random.Range(-4f, 4f), 1f);
+            coinTimer = Random.Range(3, 5);
+        }
+
+        // Spawn eggs
+        if (FindObjectsOfType<EggPickup>().Length == 0)
+        {
+            makeEgg();
+            coinTimer--;
+        }
+
+        // Spawn cars
+        spawnTimer -= Time.deltaTime;
+        if (spawnTimer <= 0)
+        {
+            //difficulty *= acceleration;
+            //difficulty = Mathf.Max(difficulty, 1f);
+            spawnTimer = difficulty;
+
+            scr_car tempCar = Instantiate(carObj);
+            int offset = chooseSide();
+            int position = Random.Range(0, numLanes / 2);
+
+            // Don't let cars overlap when spawning gets fast
+            if (difficulty < .75f)
+            {
+                while (lastLane == offset + position)
+                {
+                    position = Random.Range(0, numLanes / 2);
+                }
+            }
+
+            if (offset >= numLanes / 2)
+            {
+                tempCar.transform.position = new Vector3(areaWidth * .75f, spawnPositions[offset + position], 0.0f);
+                tempCar.GetComponent<Rigidbody2D>().velocity = new Vector3(-carSpeed, 0f, 0f);
+                tempCar.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
+            }
+            else
+            {
+                tempCar.transform.position = new Vector3(-areaWidth * .75f, spawnPositions[offset + position], 0.0f);
+                tempCar.GetComponent<Rigidbody2D>().velocity = new Vector3(carSpeed, 0f, 0f);
+                tempCar.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 180f));
+            }
+            Color randColor = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f), 1f);
+            tempCar.carColor.GetComponent<Renderer>().material.SetColor("_Color", randColor);
+            tempCar.carColor.GetComponent<Renderer>().material.SetColor("_EmissionColor", randColor);
+
+            lastLane = offset + position;
         }
     }
 
