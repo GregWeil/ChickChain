@@ -4,6 +4,9 @@ using System.Collections;
 public class ChickFollow : MonoBehaviour {
 
     public ChickenPathRecord target = null;
+
+    public ChickFollow trailing = null;
+    float trailingDelay = 0.0f;
     public float distance = 1f;
 
     Rigidbody2D body = null;
@@ -14,15 +17,13 @@ public class ChickFollow : MonoBehaviour {
     Vector2 speed = Vector2.zero;
     float speedV = 0f;
 
+
 	// Use this for initialization
 	void Start () {
         body = GetComponent<Rigidbody2D>();
         posTarget = body.position;
         posGround = transform.position.z;
-        distance = -0.3f;
-        foreach (var chick in GameObject.FindObjectsOfType<ChickFollow>()) {
-            distance = Mathf.Max(distance, (chick.distance + 1f));
-        }
+        FindTrailingTarget();
     }
 
     // Called every physics step
@@ -56,5 +57,27 @@ public class ChickFollow : MonoBehaviour {
             speedV = 0f;
         }
         transform.position = position;
+
+        if ((trailing == null) && (trailingDelay < 0f)) {
+            FindTrailingTarget(distance);
+        } else if ((trailing != null) && (trailingDelay < 0f) && (trailing != this)) {
+            distance = (trailing.distance + 1f);
+        } else if ((trailing != null) && (Mathf.Abs((trailing.distance + 1f) - distance) < 0.1f)) {
+            trailingDelay = 1f;
+        } else {
+            trailingDelay -= Time.deltaTime;
+        }
+    }
+
+    void FindTrailingTarget (float oldDistance = float.MaxValue) {
+        distance = -0.3f;
+        foreach (var chick in GameObject.FindObjectsOfType<ChickFollow>()) {
+            if (chick.target != target) continue;
+            float chickDistance = (chick.distance + 1f);
+            if ((chickDistance > distance) && (chickDistance <= oldDistance)) {
+                distance = chickDistance;
+                trailing = chick;
+            }
+        }
     }
 }
