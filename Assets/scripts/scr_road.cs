@@ -40,6 +40,10 @@ public class scr_road : MonoBehaviour {
     public EggPickup eggObj;
     public scr_coin coinObj;
 
+    //Score display
+    public UnityEngine.UI.Text scoreDisplay;
+    int scoreMax = 0;
+
 	// Use this for initialization
 	void Start () {
         difficulty = spawnTimer;
@@ -53,6 +57,9 @@ public class scr_road : MonoBehaviour {
         // Spawn initial egg
         eggSign = Mathf.Sign(Random.Range(-1f, 1f));
         makeEgg();
+
+        // Get best score
+        scoreMax = PlayerPrefs.GetInt("Best Chain");
         
 	}
 	
@@ -148,6 +155,14 @@ public class scr_road : MonoBehaviour {
 
     void gameLoop()
     {
+        // Update score
+        var score = FindObjectsOfType<ChickFollow>().Length;
+        if (score > scoreMax) {
+            scoreMax = score;
+            PlayerPrefs.SetInt("Best Chain", scoreMax);
+        }
+        scoreDisplay.text = ("Current Chain " + score.ToString() + "\nBest Chain " + scoreMax.ToString());
+
         // Game over
         if (FindObjectsOfType<ChickenMovement>().Length == 0)
         {
