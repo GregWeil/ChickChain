@@ -14,15 +14,23 @@ public class scr_camera : MonoBehaviour {
 
     bool doneMoving = false;
 
+    public Material fadeMat;
+
     // Use this for initialization
     void Start () {
 
         basePos = new Vector3(0f, -6f, 6f);
         baseRot = new Vector3(315f, 180f, 0f);
-	}
+        fadeMat.SetColor("_Color", new Color(0f, 0f, 0f, 0f));
+    }
 
     // Update is called once per frame
     void Update() {
+
+        if (scr_road.endTime < 2f)
+        {
+            fadeMat.SetColor("_Color", new Color(0f, 0f, 0f, 1f - scr_road.endTime / 2f));
+        }
 
         if (scr_road.gameStart)
         {

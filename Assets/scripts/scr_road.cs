@@ -7,12 +7,12 @@ public class scr_road : MonoBehaviour {
 
     // Game start
     public static bool gameStart = false;
+    public static float endTime;
 
     // Road variables
     private float areaWidth = 16f;
     private int numLanes = 6;
     private float[] spawnPositions = new float[6] { 2.84f, 1.75f, 0.64f, -0.66f, -1.76f, -2.86f };
-    float endTime = 3f;
 
     // Spawning variables
     private Vector2 sideWeight = new Vector2(0f, 0f);
@@ -60,6 +60,9 @@ public class scr_road : MonoBehaviour {
 
         // Get best score
         scoreMax = PlayerPrefs.GetInt("Best Chain");
+
+        // Game over time
+        endTime = 3f;
         
 	}
 	
