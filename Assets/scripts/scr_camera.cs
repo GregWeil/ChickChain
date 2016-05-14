@@ -5,36 +5,52 @@ using System.Collections.Generic;
 public class scr_camera : MonoBehaviour {
 
     Vector3 basePos;
+    Vector3 baseRot;
     List<Vector3> shakeList = new List<Vector3>();
     float shakeDelay = 0.02f;
     float shakeTime = 0.0f;
     float shakeStrength = 0.3f;
     int numShakes = 20;
 
+    bool doneMoving = false;
+
     // Use this for initialization
     void Start () {
 
-        basePos = transform.position;
-
+        basePos = new Vector3(0f, -6f, 6f);
+        baseRot = new Vector3(315f, 180f, 0f);
 	}
 
     // Update is called once per frame
     void Update() {
 
-        shakeTime -= Time.deltaTime;
+        if (scr_road.gameStart)
+        {
+            if (!doneMoving) {
+                transform.position = Vector3.Lerp(transform.position, basePos, 0.05f);
+                transform.rotation = Quaternion.Euler(Vector3.Lerp(transform.rotation.eulerAngles, baseRot, 0.05f));
+                if (Vector3.Distance(transform.position, basePos) < 0.02f) { doneMoving = true; }
+            }
 
-        if (shakeTime <= 0) {
-            shakeTime = 0;
-            if (shakeList.Count > 0)
+            if (doneMoving)
             {
-                transform.position = shakeList[0];
-                shakeList.RemoveAt(0);
-                shakeTime = shakeDelay;
+                shakeTime -= Time.deltaTime;
+                if (shakeTime <= 0)
+                {
+                    shakeTime = 0;
+                    if (shakeList.Count > 0)
+                    {
+                        transform.position = shakeList[0];
+                        shakeList.RemoveAt(0);
+                        shakeTime = shakeDelay;
+                    }
+                    else
+                    {
+                        transform.position = basePos;
+                    }
+                }
             }
-            else
-            {
-                transform.position = basePos;
-            }
+
         }
 
 	}
