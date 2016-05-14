@@ -16,12 +16,46 @@ public class scr_road : MonoBehaviour {
     private float carSpeed = 2f;
     private float spawnTimer = 1.5f;
 
+    // Crack variables
+    private List<scr_crack> crackList = new List<scr_crack>();
+    private Vector2 crackLength = new Vector2(1f, 2f);
+    private Vector2 crackWidth = new Vector2(0.3f, 0.5f);
+    private float crackRadius = 3f;
+    private int numCracks;
+
     // Prefabs
     public scr_car carObj;
+    public scr_crack crackObj;
 
 	// Use this for initialization
 	void Start () {
         difficulty = spawnTimer;
+        numCracks = Random.Range(15, 20);
+
+        // Spawn cracks
+        for (var i = 0; i < numCracks; i++)
+        {
+            scr_crack current = Instantiate(crackObj);
+
+            current.transform.rotation = Quaternion.Euler(new Vector3(0f, 180f, Random.Range(0f, 360f)));
+            current.transform.localScale = new Vector3(Random.Range(crackLength.x, crackLength.y), Random.Range(crackWidth.x, crackWidth.y), 1f);
+
+            int limit = 500;
+            while (limit > 0)
+            {
+                int matches = 0;
+                current.transform.position = new Vector3(Random.Range(-areaWidth/2, areaWidth/2), Random.Range(-3f, 3f), 0.01f);
+                for (var j = 0; j < crackList.Count; j++)
+                {
+                    scr_crack temp = crackList[j];
+                    float distance = Vector3.Distance(current.transform.position, temp.transform.position);
+                    if (distance < crackRadius) { matches++; }
+                }
+                limit--;
+                if (matches < 2) { limit = 0; }
+            }
+            crackList.Add(current);
+        }
 	}
 	
 	// Update is called once per frame
