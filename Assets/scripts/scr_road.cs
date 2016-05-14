@@ -16,7 +16,7 @@ public class scr_road : MonoBehaviour {
     private float difficulty;
     private float acceleration = .99f;
     private float carSpeed = 2f;
-    private float spawnTimer = 2f;
+    private float spawnTimer = 1.5f;
     int lastLane = -1;
 
     // Crack variables
@@ -40,36 +40,12 @@ public class scr_road : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         difficulty = spawnTimer;
-        numCracks = Random.Range(5, 7);
 
         // Initial coin spawn time
         coinTimer = Random.Range(0,0);
 
         // Spawn cracks
-        for (var i = 0; i < numCracks; i++)
-        {
-            scr_crack current = Instantiate(crackObj);
-
-            current.transform.rotation = Quaternion.Euler(new Vector3(0f, 180f, Random.Range(0f, 360f)));
-
-            int limit = 500;
-            while (limit > 0)
-            {
-                int matches = 0;
-                current.transform.position = new Vector3(Mathf.Round(Random.Range(-areaWidth/2, areaWidth/2)), Mathf.Round(Random.Range(-3f, 3f)), 0.0001f);
-                current.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 90f * Random.Range(0, 2)));
-                current.transform.localScale = new Vector3(current.transform.localScale.x * (-1 * Random.Range(1,2)), current.transform.localScale.y * (-1 * Random.Range(1, 2)), 1f);
-                for (var j = 0; j < crackList.Count; j++)
-                {
-                    scr_crack temp = crackList[j];
-                    float distance = crackDistance(current, temp);
-                    if (distance < crackRadius) { matches++; }
-                }
-                limit--;
-                if (matches < 1) { limit = 0; }
-            }
-            crackList.Add(current);
-        }
+        makeCracks();
 
         // Spawn initial egg
         eggSign = Mathf.Sign(Random.Range(-1f, 1f));
@@ -110,8 +86,8 @@ public class scr_road : MonoBehaviour {
         spawnTimer -= Time.deltaTime;
         if (spawnTimer <= 0)
         {
-            difficulty *= acceleration;
-            difficulty = Mathf.Max(difficulty, 1f);
+            //difficulty *= acceleration;
+            //difficulty = Mathf.Max(difficulty, 1f);
             spawnTimer = difficulty;
 
             scr_car tempCar = Instantiate(carObj);
@@ -178,6 +154,45 @@ public class scr_road : MonoBehaviour {
         Vector3 eggPos = new Vector3(Random.Range(-6, 6), 4f * eggSign, 0f);
         eggSign *= -1;
         Instantiate(eggObj, eggPos, Quaternion.identity);
+    }
+
+    public void makeCracks()
+    {
+
+        // Delete old cracks
+        scr_crack[] allCracks = FindObjectsOfType<scr_crack>();
+        for (var i = 0; i < allCracks.Length; i++)
+        {
+            Destroy(allCracks[i].gameObject);
+        }
+
+        // Make new cracks
+        crackList.Clear();
+        numCracks = Random.Range(5, 7);
+        for (var i = 0; i < numCracks; i++)
+        {
+            scr_crack current = Instantiate(crackObj);
+
+            current.transform.rotation = Quaternion.Euler(new Vector3(0f, 180f, Random.Range(0f, 360f)));
+
+            int limit = 500;
+            while (limit > 0)
+            {
+                int matches = 0;
+                current.transform.position = new Vector3(Mathf.Round(Random.Range(-areaWidth / 2, areaWidth / 2)), Mathf.Round(Random.Range(-3f, 3f)), 0.0001f);
+                current.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 90f * Random.Range(0, 2)));
+                current.transform.localScale = new Vector3(current.transform.localScale.x * (-1 * Random.Range(1, 2)), current.transform.localScale.y * (-1 * Random.Range(1, 2)), 1f);
+                for (var j = 0; j < crackList.Count; j++)
+                {
+                    scr_crack temp = crackList[j];
+                    float distance = crackDistance(current, temp);
+                    if (distance < crackRadius) { matches++; }
+                }
+                limit--;
+                if (matches < 1) { limit = 0; }
+            }
+            crackList.Add(current);
+        }
     }
 
 }
