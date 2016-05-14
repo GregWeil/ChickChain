@@ -82,6 +82,12 @@ public class scr_road : MonoBehaviour {
             gameLoop();
         }
 
+        // Quit game
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+
     }
 
     // Choose to spawn a car going left, or a car going right
