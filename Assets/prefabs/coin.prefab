@@ -10,6 +10,8 @@ GameObject:
   - 4: {fileID: 453332}
   - 33: {fileID: 3367804}
   - 23: {fileID: 2352024}
+  - 114: {fileID: 11463126}
+  - 61: {fileID: 6110308}
   m_Layer: 0
   m_Name: coin
   m_TagString: Untagged
@@ -62,6 +64,31 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 139222}
   m_Mesh: {fileID: 4300000, guid: 1c61e5d42a9ae5f418889c521793e785, type: 3}
+--- !u!61 &6110308
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 139222}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: -2.3283064e-10, y: -3.4924597e-10}
+  serializedVersion: 2
+  m_Size: {x: 0.0050000018, y: 0.0050000018}
+--- !u!114 &11463126
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 139222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cede96bf70260244829b430a6bd9f90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
