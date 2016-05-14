@@ -27,7 +27,12 @@ public class ChickFollow : MonoBehaviour {
 
     // Called every physics step
     void FixedUpdate() {
-        Vector2 position = target.pathPosition(distance);
+        Vector2 position = posTarget;
+        if (target != null) {
+            position = target.pathPosition(distance);
+        } else {
+            position = new Vector2(Random.Range(-7.5f, 7.5f), Random.Range(-4f, 4f));
+        }
         if (Vector2.Distance(posTarget, position) > 0.5f) {
             if ((transform.position.z <= posGround) && (speedV <= 0f)) {
                 posTarget = Vector2.MoveTowards(posTarget, position, 0.75f);
