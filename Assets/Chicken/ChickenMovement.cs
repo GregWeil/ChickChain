@@ -4,6 +4,7 @@ using System.Collections;
 public class ChickenMovement : MonoBehaviour {
 
     public GameObject mesh = null;
+    public AudioSource stunSound = null;
 
     Rigidbody2D body;
 
@@ -63,5 +64,6 @@ public class ChickenMovement : MonoBehaviour {
 
     public void stun(float time) {
         stunTime = Mathf.Max(time, stunTime);
+        stunSound.Play();
     }
 }
