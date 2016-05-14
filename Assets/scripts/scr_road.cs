@@ -101,13 +101,13 @@ public class scr_road : MonoBehaviour {
             {
                 tempCar.transform.position = new Vector3(areaWidth * .75f, spawnPositions[offset + position], 0.0f);
                 tempCar.GetComponent<Rigidbody2D>().velocity = new Vector3(-carSpeed, 0f, 0f);
-                tempCar.transform.rotation = Quaternion.Euler(new Vector3(90f, 0f, 0f));
+                tempCar.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
             }
             else
             {
                 tempCar.transform.position = new Vector3(-areaWidth * .75f, spawnPositions[offset + position], 0.0f);
                 tempCar.GetComponent<Rigidbody2D>().velocity = new Vector3(carSpeed, 0f, 0f);
-                tempCar.transform.rotation = Quaternion.Euler(new Vector3(-90f, -90f, -90f));
+                tempCar.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 180f));
             }
             Color randColor = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f), 1f);
             tempCar.carColor.GetComponent<Renderer>().material.SetColor("_Color", randColor);
