@@ -17,7 +17,7 @@ public class ChickFollow : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         body = GetComponent<Rigidbody2D>();
-        posTarget = transform.position;
+        posTarget = body.position;
         posGround = transform.position.z;
         distance = target.reserveSlot();
     }
@@ -26,7 +26,7 @@ public class ChickFollow : MonoBehaviour {
     void FixedUpdate() {
         Vector2 position = target.pathPosition(distance);
         if ((Vector2.Distance(position, posTarget) > 1f) && (transform.position.z <= posGround)) {
-            posTarget = position;
+            posTarget = Vector2.MoveTowards(posTarget, position, 1.5f);
             speedV += Random.Range(15f, 25f);
         }
         body.MovePosition(Vector2.SmoothDamp(transform.position, posTarget, ref speed, 0.05f));
