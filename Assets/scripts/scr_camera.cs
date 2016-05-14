@@ -19,7 +19,7 @@ public class scr_camera : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-        basePos = new Vector3(0f, -6f, 6f);
+        basePos = new Vector3(0f, -6.5f, 8f);
         baseRot = new Vector3(315f, 180f, 0f);
         fadeMat.SetColor("_Color", new Color(0f, 0f, 0f, 0f));
     }
