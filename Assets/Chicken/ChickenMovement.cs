@@ -6,8 +6,8 @@ public class ChickenMovement : MonoBehaviour {
     Rigidbody2D body;
 
     Vector2 movement = Vector2.zero;
-    float speed = 5.0f;
-    float accel = 25.0f;
+    float speed = 2.5f;
+    float accel = 15f;
 
     float posGround = 0f;
     float speedV = 0f;
@@ -25,7 +25,7 @@ public class ChickenMovement : MonoBehaviour {
     void FixedUpdate () {
         body.velocity = Vector2.MoveTowards(body.velocity, (movement * speed), (accel * Time.fixedDeltaTime));
         if (movement.magnitude > threshold) {
-            var angle = (Mathf.Atan2(movement.y, movement.x) * Mathf.Rad2Deg);
+            var angle = (Mathf.Atan2(movement.y, movement.x) * Mathf.Rad2Deg) + 180f;
             body.MoveRotation(Mathf.MoveTowardsAngle(body.rotation, angle, (300f * Time.fixedDeltaTime)));
         }
     }

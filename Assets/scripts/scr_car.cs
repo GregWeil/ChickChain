@@ -11,6 +11,11 @@ public class scr_car : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+
+        // Destroy if out of bounds
+	    if (Mathf.Abs(transform.position.x) > 16f * .8f)
+        {
+            Destroy(gameObject);
+        }
 	}
 }
