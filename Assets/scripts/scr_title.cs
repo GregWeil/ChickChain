@@ -3,6 +3,9 @@ using System.Collections;
 
 public class scr_title : MonoBehaviour {
 
+    public AudioSource sound;
+    bool soundPlayed = false;
+
     private Vector3 basePos;
     private float rise = 0;
     private float dist = 0.1f;
@@ -23,6 +26,10 @@ public class scr_title : MonoBehaviour {
         if (scr_road.gameStart)
         {
             rise = Mathf.Lerp(rise, 5f, 0.007f);
+            if (!soundPlayed) {
+                sound.Play();
+                soundPlayed = true;
+            }
         }
 
         else
