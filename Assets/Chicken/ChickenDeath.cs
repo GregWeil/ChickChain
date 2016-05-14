@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ChickDeath : MonoBehaviour {
+public class ChickenDeath : MonoBehaviour {
 
     public GameObject effectPrefab = null;
 
