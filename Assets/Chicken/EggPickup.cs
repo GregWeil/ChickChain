@@ -4,14 +4,16 @@ using System.Collections;
 public class EggPickup : MonoBehaviour {
 
     public GameObject chickPrefab = null;
-    public AudioSource sound = null;
+    public GameObject effectPrefab = null;
 
 	// Something made contact
 	void OnTriggerEnter2D (Collider2D col) {
         if (!col.CompareTag("Player")) return;
-        sound.transform.parent = null;
-        Destroy(sound.gameObject, 5f);
-        sound.Play();
+        if (effectPrefab != null) {
+            var effect = Instantiate(effectPrefab);
+            effect.transform.position = transform.position;
+            Destroy(effect, 5f);
+        }
         if (chickPrefab != null) {
             var chick = Instantiate(chickPrefab);
             chick.name = chickPrefab.name;
