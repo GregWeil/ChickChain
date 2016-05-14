@@ -51,12 +51,13 @@ public class ChickenMovement : MonoBehaviour {
 
         var position = transform.position;
         if ((position.z <= posGround) && (speedV <= 0)) {
-            if (movement.magnitude > threshold) {
+            if ((movement.magnitude > threshold) || (Input.GetButtonDown("Jump") && scr_road.gameStart)) {
                 speedV += 5f;
                 bokSound.pitch = Random.Range(0.9f, 1.1f);
                 bokSound.Play();
             }
         }
+        if (Input.GetButton("Jump") && (speedV > 0f)) speedV += (5f * Time.deltaTime);
         speedV -= (30f * Time.deltaTime);
         position.z += (speedV * Time.deltaTime);
         if (position.z < posGround) {
