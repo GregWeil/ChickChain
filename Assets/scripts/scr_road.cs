@@ -15,12 +15,12 @@ public class scr_road : MonoBehaviour {
     private float acceleration = .99f;
     private float carSpeed = 2f;
     private float spawnTimer = 1.5f;
+    int lastLane = -1;
 
     // Crack variables
     private List<scr_crack> crackList = new List<scr_crack>();
-    private Vector2 crackLength = new Vector2(1f, 2f);
-    private Vector2 crackWidth = new Vector2(0.3f, 0.5f);
     private float crackRadius = 3f;
+    private float crackRatio = 3f;
     private int numCracks;
 
     // Prefabs
@@ -38,21 +38,21 @@ public class scr_road : MonoBehaviour {
             scr_crack current = Instantiate(crackObj);
 
             current.transform.rotation = Quaternion.Euler(new Vector3(0f, 180f, Random.Range(0f, 360f)));
-            current.transform.localScale = new Vector3(Random.Range(crackLength.x, crackLength.y), Random.Range(crackWidth.x, crackWidth.y), 1f);
 
             int limit = 500;
             while (limit > 0)
             {
                 int matches = 0;
-                current.transform.position = new Vector3(Random.Range(-areaWidth/2, areaWidth/2), Random.Range(-3f, 3f), 0.01f);
+                current.transform.position = new Vector3(Mathf.Round(Random.Range(-areaWidth/2, areaWidth/2)), Mathf.Round(Random.Range(-3f, 3f)), 0.01f);
+                current.transform.rotation = Quaternion.Euler(new Vector3(0f, 180f, 90f * Random.Range(0, 2)));
                 for (var j = 0; j < crackList.Count; j++)
                 {
                     scr_crack temp = crackList[j];
-                    float distance = Vector3.Distance(current.transform.position, temp.transform.position);
+                    float distance = crackDistance(current, temp);
                     if (distance < crackRadius) { matches++; }
                 }
                 limit--;
-                if (matches < 2) { limit = 0; }
+                if (matches < 1) { limit = 0; }
             }
             crackList.Add(current);
         }
@@ -72,6 +72,14 @@ public class scr_road : MonoBehaviour {
             int offset = chooseSide();
             int position = Random.Range(0, numLanes / 2);
 
+            // Don't let cars overlap when spawning gets fast
+            if (difficulty < .75f) {
+                while (lastLane == offset + position)
+                {
+                    position = Random.Range(0, numLanes / 2);
+                }
+            }
+
             if (offset >= numLanes / 2)
             {
                 tempCar.transform.position = new Vector3(areaWidth * .75f, spawnPositions[offset + position], 0.0f);
@@ -86,8 +94,9 @@ public class scr_road : MonoBehaviour {
             }
             Color randColor = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f), 1f);
             tempCar.carColor.GetComponent<Renderer>().material.SetColor("_Color", randColor);
-            tempCar.carColor.GetComponent<Renderer>().material.SetColor("_SpecColor", randColor);
             tempCar.carColor.GetComponent<Renderer>().material.SetColor("_EmissionColor", randColor);
+
+            lastLane = offset + position;
         }
 
     }
@@ -110,4 +119,12 @@ public class scr_road : MonoBehaviour {
             return 0;
         }
     }
+
+    float crackDistance(scr_crack a, scr_crack b)
+    {
+        float xDist = Mathf.Abs(a.transform.position.x - b.transform.position.x) * crackRatio;
+        float yDist = Mathf.Abs(a.transform.position.y - b.transform.position.y);
+        return Mathf.Sqrt( (xDist * xDist) + (yDist * yDist) );
+    }
+
 }
