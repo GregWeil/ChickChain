@@ -30,6 +30,10 @@ public class ChickFollow : MonoBehaviour {
             speedV += Random.Range(15f, 25f);
         }
         body.MovePosition(Vector2.SmoothDamp(transform.position, posTarget, ref speed, 0.05f));
+        if (speed.sqrMagnitude > 1f) {
+            var angle = (Mathf.Atan2(speed.y, speed.x) * Mathf.Rad2Deg);
+            body.MoveRotation(Mathf.MoveTowardsAngle(body.rotation, angle, (1000f * Time.fixedDeltaTime)));
+        }
     }
 
     // Update is called once per frame
