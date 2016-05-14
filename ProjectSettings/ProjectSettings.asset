@@ -9,7 +9,7 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
+  companyName: Brain Punch
   productName: ChickChain
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
@@ -173,37 +173,37 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 0}
+      m_Icon: {fileID: 2800000, guid: 2941bcc8d1d795a4b8fdacb99e8e60f4, type: 3}
       m_Width: 128
       m_Height: 128
   - m_BuildTarget: Standalone
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: d363c3931e99263419c80193ca904f09, type: 3}
+      m_Icon: {fileID: 2800000, guid: 0f3767e59183ecb4fbe0747e1a0ac4cb, type: 3}
       m_Width: 1024
       m_Height: 1024
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: eeb5fe8420a45da4ea13af3460efeac2, type: 3}
+      m_Icon: {fileID: 2800000, guid: 8a52e99f17f04ca4a96fc253d58ac244, type: 3}
       m_Width: 512
       m_Height: 512
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 269ea8ac300111f43896b6f645c2e966, type: 3}
+      m_Icon: {fileID: 2800000, guid: cc4ac1265e4f64b46b90fd95589d54ea, type: 3}
       m_Width: 256
       m_Height: 256
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: ad66c58b566e93341b635cdd54d41097, type: 3}
+      m_Icon: {fileID: 2800000, guid: 376e6cc0abb4d1343b8c0abe3201164e, type: 3}
       m_Width: 128
       m_Height: 128
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 4cfbe551bd55a1b42a7904f7d212e1c7, type: 3}
+      m_Icon: {fileID: 2800000, guid: 1877a728fbe962a449a2114dde999ce4, type: 3}
       m_Width: 48
       m_Height: 48
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 614710524cf3f4c4bb7dff39ef579806, type: 3}
+      m_Icon: {fileID: 2800000, guid: b8f10dd9048b1d64187f56d06aab0257, type: 3}
       m_Width: 32
       m_Height: 32
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 80d0dc09258b983428abcd06f0424eb8, type: 3}
+      m_Icon: {fileID: 2800000, guid: 118d04b77a7e5004da03cb84699b8b21, type: 3}
       m_Width: 16
       m_Height: 16
   m_BuildTargetBatching: []
@@ -360,7 +360,9 @@ PlayerSettings:
   psp2InfoBarColor: 0
   psmSplashimage: {fileID: 0}
   spritePackerPolicy: 
-  scriptingDefineSymbols: {}
+  scriptingDefineSymbols:
+    1: 
+    2: 
   metroPackageName: ChickChain
   metroPackageVersion: 
   metroCertificatePath: 
