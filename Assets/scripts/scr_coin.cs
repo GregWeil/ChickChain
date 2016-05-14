@@ -4,6 +4,7 @@ using System.Collections;
 public class scr_coin : MonoBehaviour {
 
     public AudioSource sound = null;
+    public AudioSource clink = null;
 
     float acceleration = 5f;
     float velocity = 0f;
@@ -35,6 +36,7 @@ public class scr_coin : MonoBehaviour {
     {
         cameraObj = Camera.main.GetComponent<scr_camera>();
         roadObj = FindObjectOfType<scr_road>();
+        clink = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -49,6 +51,10 @@ public class scr_coin : MonoBehaviour {
                 velocity = 0;
             }
             else {
+                if (numBounces == 0) { clink.Play(); clink.pitch = 0.8f; }
+                else if (numBounces == 1) { clink.Play(); clink.pitch = 0.5f; }
+                else if (numBounces == 2) { clink.Play(); }
+
                 velocity *= -0.3f;
                 transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
                 numBounces++;
