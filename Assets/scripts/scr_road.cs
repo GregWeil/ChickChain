@@ -20,7 +20,7 @@ public class scr_road : MonoBehaviour {
     // Crack variables
     private List<scr_crack> crackList = new List<scr_crack>();
     private float crackRadius = 3f;
-    private float crackRatio = 3f;
+    private float crackRatio = 2f;
     private int numCracks;
 
     // Prefabs
@@ -44,7 +44,8 @@ public class scr_road : MonoBehaviour {
             {
                 int matches = 0;
                 current.transform.position = new Vector3(Mathf.Round(Random.Range(-areaWidth/2, areaWidth/2)), Mathf.Round(Random.Range(-3f, 3f)), 0.01f);
-                current.transform.rotation = Quaternion.Euler(new Vector3(0f, 180f, 90f * Random.Range(0, 2)));
+                current.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, 90f * Random.Range(0, 2)));
+                current.transform.localScale = new Vector3(current.transform.localScale.x * (-1 * Random.Range(1,2)), current.transform.localScale.y * (-1 * Random.Range(1, 2)), 1f);
                 for (var j = 0; j < crackList.Count; j++)
                 {
                     scr_crack temp = crackList[j];
