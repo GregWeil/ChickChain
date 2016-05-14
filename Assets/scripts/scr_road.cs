@@ -61,7 +61,7 @@ public class scr_road : MonoBehaviour {
 
         if (!gameStart)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetButton("Submit"))
             {
                 gameStart = true;
             }
