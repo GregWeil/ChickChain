@@ -130,7 +130,12 @@ public class scr_road : MonoBehaviour {
         // Quit game
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Application.Quit();
+            if (gameStart) {
+                gameStart = false;
+                SceneManager.LoadScene("scene_road");
+            } else {
+                Application.Quit();
+            }
         }
 
     }
