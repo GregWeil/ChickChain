@@ -89,6 +89,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27ea7802ab45d39488395d49b079a247, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseMaterial: {fileID: 2100000, guid: dbd172189f0202343997290bc65d97d9, type: 2}
+  hitMaterial: {fileID: 2100000, guid: b4a6b2995dad76041adfc4f8bcb312ea, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
