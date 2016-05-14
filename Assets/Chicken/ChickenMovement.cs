@@ -25,7 +25,7 @@ public class ChickenMovement : MonoBehaviour {
     void FixedUpdate () {
         body.velocity = Vector2.MoveTowards(body.velocity, (movement * speed), (accel * Time.fixedDeltaTime));
         if (movement.magnitude > threshold) {
-            var angle = (Mathf.Atan2(movement.y, movement.x) * Mathf.Rad2Deg);
+            var angle = (Mathf.Atan2(movement.y, movement.x) * Mathf.Rad2Deg) + 180f;
             body.MoveRotation(Mathf.MoveTowardsAngle(body.rotation, angle, (300f * Time.fixedDeltaTime)));
         }
     }
