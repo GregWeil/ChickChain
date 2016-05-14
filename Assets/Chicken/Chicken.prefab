@@ -8,8 +8,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 434306}
-  - 23: {fileID: 2300806}
   - 33: {fileID: 3397774}
+  - 23: {fileID: 2300806}
   - 58: {fileID: 5868158}
   - 50: {fileID: 5072730}
   - 114: {fileID: 11476700}
@@ -65,7 +65,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 109670}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!50 &5072730
 Rigidbody2D:
   serializedVersion: 2
