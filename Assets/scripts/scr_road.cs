@@ -44,6 +44,10 @@ public class scr_road : MonoBehaviour {
     public UnityEngine.UI.Text scoreDisplay;
     int scoreMax = 0;
 
+    //Car sounds
+    public List<AudioSource> carSounds;
+    int carSoundsPlaying = 0;
+
 	// Use this for initialization
 	void Start () {
         difficulty = spawnTimer;
@@ -80,6 +84,36 @@ public class scr_road : MonoBehaviour {
         else if (gameStart)
         {
             gameLoop();
+        }
+
+        // Update car sounds
+        var carCount = FindObjectsOfType<scr_car>().Length;
+        if (carCount > carSounds.Count) carCount = carSounds.Count;
+        if (carCount > carSoundsPlaying) {
+            var soundsToPlay = new List<AudioSource>();
+            foreach (var sound in carSounds) {
+                if (!sound.isPlaying) soundsToPlay.Add(sound);
+            }
+            for (int i = carSoundsPlaying; i < carCount; ++i) {
+                if (soundsToPlay.Count <= 0) break;
+                var sound = soundsToPlay[Random.Range(0, soundsToPlay.Count)];
+                soundsToPlay.Remove(sound);
+                sound.Play();
+            }
+            carSoundsPlaying = (carSounds.Count - soundsToPlay.Count);
+        }
+        if (carCount < carSoundsPlaying) {
+            var soundsToStop = new List<AudioSource>();
+            foreach (var sound in carSounds) {
+                if (sound.isPlaying) soundsToStop.Add(sound);
+            }
+            for (int i = carSoundsPlaying; i > carCount; --i) {
+                if (soundsToStop.Count <= 0) break;
+                var sound = soundsToStop[Random.Range(0, soundsToStop.Count)];
+                soundsToStop.Remove(sound);
+                sound.Stop();
+            }
+            carSoundsPlaying = soundsToStop.Count;
         }
 
         // Quit game
