@@ -22,7 +22,7 @@ public class scr_title : MonoBehaviour {
 
         if (scr_road.gameStart)
         {
-            rise = Mathf.Lerp(rise, 5f, 0.005f);
+            rise = Mathf.Lerp(rise, 5f, 0.007f);
         }
 
         else
