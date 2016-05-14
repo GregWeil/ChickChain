@@ -27,9 +27,9 @@ public class scr_camera : MonoBehaviour {
     // Update is called once per frame
     void Update() {
 
-        if (scr_road.endTime < 2f)
+        if (scr_road.endTime < 1.5f)
         {
-            fadeMat.SetColor("_Color", new Color(0f, 0f, 0f, 1f - scr_road.endTime / 2f));
+            fadeMat.SetColor("_Color", new Color(0f, 0f, 0f, 1f - scr_road.endTime / 1.5f));
         }
 
         if (scr_road.gameStart)
