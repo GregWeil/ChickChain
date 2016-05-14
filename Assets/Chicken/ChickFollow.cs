@@ -4,12 +4,12 @@ using System.Collections;
 public class ChickFollow : MonoBehaviour {
 
     public ChickenPathRecord target = null;
+    public float distance = 1f;
 
     Rigidbody2D body = null;
 
     Vector2 posTarget = Vector2.zero;
     float posGround = 0f;
-    float distance = 1f;
 
     Vector2 speed = Vector2.zero;
     float speedV = 0f;
@@ -19,7 +19,10 @@ public class ChickFollow : MonoBehaviour {
         body = GetComponent<Rigidbody2D>();
         posTarget = body.position;
         posGround = transform.position.z;
-        distance = target.reserveSlot();
+        distance = -0.3f;
+        foreach (var chick in GameObject.FindObjectsOfType<ChickFollow>()) {
+            distance = Mathf.Max(distance, (chick.distance + 1f));
+        }
     }
 
     // Called every physics step
