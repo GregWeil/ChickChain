@@ -10,6 +10,7 @@ public class EggPickup : MonoBehaviour {
         if (!col.CompareTag("Player")) return;
         if (chickPrefab != null) {
             var chick = Instantiate(chickPrefab);
+            chick.name = chickPrefab.name;
             chick.transform.position = transform.position;
             var follow = chick.GetComponent<ChickFollow>();
             follow.target = col.GetComponent<ChickenPathRecord>();

@@ -18,4 +18,8 @@ public class scr_car : MonoBehaviour {
             Destroy(gameObject);
         }
 	}
+
+    void OnTriggerEnter2D (Collider2D col) {
+        col.SendMessage("Kill", SendMessageOptions.DontRequireReceiver);
+    }
 }
