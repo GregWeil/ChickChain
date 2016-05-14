@@ -504,8 +504,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa9b0cc5b76dda54bbb701f090237064, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eggSign: 1
   carObj: {fileID: 11496662, guid: 78f2308758731074e9874ebb2cf0cf94, type: 2}
   crackObj: {fileID: 11451836, guid: 87407366d470e1c428197fb39a62a739, type: 2}
+  eggObj: {fileID: 11499582, guid: ea091081b98de214c9fc4f3319cef4d2, type: 2}
 --- !u!4 &2045989879
 Transform:
   m_ObjectHideFlags: 0
