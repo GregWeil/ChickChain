@@ -836,6 +836,7 @@ MonoBehaviour:
   eggObj: {fileID: 11499582, guid: ea091081b98de214c9fc4f3319cef4d2, type: 2}
   coinObj: {fileID: 11463126, guid: 84bb189e674db0447a6479a1ad84aa49, type: 2}
   scoreDisplay: {fileID: 1966384467}
+  musicPrefab: {fileID: 128486, guid: 18a85ea9e3d2c544a981f246acbb367c, type: 2}
   carSounds:
   - {fileID: 2045989882}
   - {fileID: 2045989881}

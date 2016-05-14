@@ -44,6 +44,10 @@ public class scr_road : MonoBehaviour {
     public UnityEngine.UI.Text scoreDisplay;
     int scoreMax = 0;
 
+    //Music
+    public GameObject musicPrefab;
+    static GameObject musicObj = null;
+
     //Car sounds
     public List<AudioSource> carSounds;
     int carSoundsPlaying = 0;
@@ -67,6 +71,13 @@ public class scr_road : MonoBehaviour {
 
         // Game over time
         endTime = 3f;
+
+        //Create music
+        if (musicObj == null) {
+            musicObj = Instantiate(musicPrefab);
+            musicObj.name = musicPrefab.name;
+            DontDestroyOnLoad(musicObj);
+        }
         
 	}
 	
