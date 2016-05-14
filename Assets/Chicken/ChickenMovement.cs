@@ -39,6 +39,7 @@ public class ChickenMovement : MonoBehaviour {
         movement = new Vector2(-Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         if (movement.sqrMagnitude > 1) movement.Normalize();
         if (movement.magnitude < threshold) movement = Vector2.zero;
+        if (!scr_road.gameStart) movement = Vector2.zero;
 
         stunTime -= Time.deltaTime;
         if (stunTime > 0f) {
