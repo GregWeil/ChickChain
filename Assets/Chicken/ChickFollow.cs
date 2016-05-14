@@ -4,12 +4,12 @@ using System.Collections;
 public class ChickFollow : MonoBehaviour {
 
     public ChickenPathRecord target = null;
+    public float distance = 1f;
 
     Rigidbody2D body = null;
 
     Vector2 posTarget = Vector2.zero;
     float posGround = 0f;
-    float distance = 1f;
 
     Vector2 speed = Vector2.zero;
     float speedV = 0f;
@@ -19,12 +19,20 @@ public class ChickFollow : MonoBehaviour {
         body = GetComponent<Rigidbody2D>();
         posTarget = body.position;
         posGround = transform.position.z;
-        distance = target.reserveSlot();
+        distance = -0.3f;
+        foreach (var chick in GameObject.FindObjectsOfType<ChickFollow>()) {
+            distance = Mathf.Max(distance, (chick.distance + 1f));
+        }
     }
 
     // Called every physics step
     void FixedUpdate() {
-        Vector2 position = target.pathPosition(distance);
+        Vector2 position = posTarget;
+        if (target != null) {
+            position = target.pathPosition(distance);
+        } else {
+            position = new Vector2(Random.Range(-7.5f, 7.5f), Random.Range(-4f, 4f));
+        }
         if (Vector2.Distance(posTarget, position) > 0.5f) {
             if ((transform.position.z <= posGround) && (speedV <= 0f)) {
                 posTarget = Vector2.MoveTowards(posTarget, position, 0.75f);

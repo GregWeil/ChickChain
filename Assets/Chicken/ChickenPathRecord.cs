@@ -8,8 +8,6 @@ public class ChickenPathRecord : MonoBehaviour {
     float interval = 0.1f;
     int history = 1;
 
-    int count = 0;
-
 	// Use this for initialization
 	void Start () {
         positions.Add(transform.position);
@@ -25,11 +23,6 @@ public class ChickenPathRecord : MonoBehaviour {
             positions.RemoveAt(0);
         }
 	}
-
-    public float reserveSlot () {
-        count += 1;
-        return (1f * count);
-    }
 
     public Vector2 pathPosition (float distance) {
         int index = Mathf.RoundToInt(distance / interval);

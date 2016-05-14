@@ -13,6 +13,7 @@ GameObject:
   - 23: {fileID: 2342942}
   - 50: {fileID: 5033908}
   - 114: {fileID: 11439236}
+  - 114: {fileID: 11429348}
   m_Layer: 0
   m_Name: Chick
   m_TagString: Follower
@@ -75,7 +76,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 1
   m_GravityScale: 1
   m_IsKinematic: 1
   m_Interpolate: 1
@@ -96,6 +97,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.125
+--- !u!114 &11429348
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 188894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea23d56158972e64cb115ec27abacbd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectPrefab: {fileID: 178644, guid: 96e433dc1bd1f3440832379bdfc3f3f3, type: 2}
 --- !u!114 &11439236
 MonoBehaviour:
   m_ObjectHideFlags: 1

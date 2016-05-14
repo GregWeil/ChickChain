@@ -1,0 +1,56 @@
+﻿using UnityEngine;
+using System.Collections;
+
+public class scr_coin : MonoBehaviour {
+
+    float acceleration = 5f;
+    float velocity = 0f;
+    int numBounces = 0;
+
+    private scr_camera cameraObj;
+    private scr_road roadObj;
+
+    // Something made contact
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.CompareTag("Player")) {
+            scr_car[] allCars = FindObjectsOfType<scr_car>();
+            for (var i = 0; i < allCars.Length; i++)
+            {
+                Destroy(allCars[i].gameObject);     
+            }
+            Destroy(gameObject);
+            roadObj.makeCracks();
+            cameraObj.Shake();
+        }
+        
+    }
+
+    void Start()
+    {
+        cameraObj = Camera.main.GetComponent<scr_camera>();
+        roadObj = FindObjectOfType<scr_road>();
+    }
+
+    void Update()
+    {
+        velocity -= acceleration * Time.deltaTime;    
+
+        if (transform.position.z < 0)
+        {
+            if (numBounces >= 3) {
+                transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
+                acceleration = 0;
+                velocity = 0;
+            }
+            else {
+                velocity *= -0.3f;
+                transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f);
+                numBounces++;
+            }  
+        }
+
+        transform.Translate(0f, 0f, velocity * Time.deltaTime);
+
+    }
+}
