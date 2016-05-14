@@ -4,8 +4,9 @@ using System.Collections;
 public class ChickFollow : MonoBehaviour {
 
     public ChickenPathRecord target = null;
+    public AudioSource chirpSound = null;
 
-    public ChickFollow trailing = null;
+    ChickFollow trailing = null;
     float trailingDelay = 0.0f;
     public float distance = 1f;
 
@@ -24,6 +25,7 @@ public class ChickFollow : MonoBehaviour {
         posTarget = body.position;
         posGround = transform.position.z;
         FindTrailingTarget();
+        chirpSound.pitch = Random.Range(0.8f, 1.2f);
     }
 
     // Called every physics step
@@ -38,6 +40,7 @@ public class ChickFollow : MonoBehaviour {
             if ((transform.position.z <= posGround) && (speedV <= 0f)) {
                 posTarget = Vector2.MoveTowards(posTarget, position, 0.75f);
                 speedV += Random.Range(10f, 20f);
+                chirpSound.Play();
             }
         }
         body.MovePosition(Vector2.SmoothDamp(transform.position, posTarget, ref speed, 0.05f));
