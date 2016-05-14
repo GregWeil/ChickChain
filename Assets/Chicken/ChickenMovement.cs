@@ -6,8 +6,8 @@ public class ChickenMovement : MonoBehaviour {
     Rigidbody2D body;
 
     Vector2 movement = Vector2.zero;
-    float speed = 5.0f;
-    float accel = 25.0f;
+    float speed = 2.5f;
+    float accel = 15f;
 
     float posGround = 0f;
     float speedV = 0f;

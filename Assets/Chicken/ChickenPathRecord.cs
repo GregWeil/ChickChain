@@ -28,7 +28,7 @@ public class ChickenPathRecord : MonoBehaviour {
 
     public float reserveSlot () {
         count += 1;
-        return (2f * count);
+        return (1f * count);
     }
 
     public Vector2 pathPosition (float distance) {
