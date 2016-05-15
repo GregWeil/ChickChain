@@ -54,6 +54,8 @@ public class scr_road : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        if (!Application.isEditor) Cursor.visible = false;
+
         difficulty = spawnTimer;
 
         // Initial coin spawn time
