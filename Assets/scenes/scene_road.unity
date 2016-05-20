@@ -539,8 +539,8 @@ Camera:
   m_GameObject: {fileID: 1584011297}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0.019607844}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.5882353, g: 0.82745105, b: 0.9960785, a: 0.019607844}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -647,7 +647,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1990192737}
   - 33: {fileID: 1990192736}
-  - 64: {fileID: 1990192735}
   - 23: {fileID: 1990192734}
   - 114: {fileID: 1990192733}
   - 82: {fileID: 1990192738}
@@ -696,18 +695,6 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!64 &1990192735
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1990192732}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &1990192736
 MeshFilter:
   m_ObjectHideFlags: 0
