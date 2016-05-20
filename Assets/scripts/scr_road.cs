@@ -54,6 +54,8 @@ public class scr_road : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        if (!Application.isEditor) Cursor.visible = false;
+
         difficulty = spawnTimer;
 
         // Initial coin spawn time
@@ -130,7 +132,12 @@ public class scr_road : MonoBehaviour {
         // Quit game
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Application.Quit();
+            if (gameStart) {
+                gameStart = false;
+                SceneManager.LoadScene("scene_road");
+            } else {
+                Application.Quit();
+            }
         }
 
     }

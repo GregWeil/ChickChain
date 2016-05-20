@@ -37,7 +37,7 @@ public class scr_camera : MonoBehaviour {
             if (!doneMoving) {
                 transform.position = Vector3.Lerp(transform.position, basePos, 0.05f);
                 transform.rotation = Quaternion.Euler(Vector3.Lerp(transform.rotation.eulerAngles, baseRot, 0.05f));
-                if (Vector3.Distance(transform.position, basePos) < 0.02f) { doneMoving = true; }
+                if (Vector3.Distance(transform.position, basePos) < 0.01f) { doneMoving = true; }
             }
 
             if (doneMoving)
