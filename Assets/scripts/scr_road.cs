@@ -248,6 +248,10 @@ public class scr_road : MonoBehaviour {
         {
             makeEgg();
             coinTimer--;
+            if (FindObjectsOfType<scr_coin>().Length > 4 && coinTimer == 0)
+            {
+                coinTimer = 1;
+            }
         }
 
         // Spawn cars
